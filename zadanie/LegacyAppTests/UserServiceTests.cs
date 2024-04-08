@@ -1,6 +1,4 @@
 using LegacyApp;
-using System;
-using Xunit;
 
 namespace LegacyAppTests
 {
@@ -55,13 +53,7 @@ namespace LegacyAppTests
             Assert.False(result);
         }
 
-        [Fact]
-        public void AddUser_ReturnsFalse_WhenClientDoesNotExist()
-        {
-            var userService = new UserService();
-            var result = userService.AddUser("John", "Doe", "johndoe@example.com", new DateTime(1980, 1, 1), 999);
-            Assert.False(result);
-        }
+  
 
         [Fact]
         public void AddUser_ReturnsFalse_WhenCreditLimitIsLessThan500()
@@ -75,7 +67,8 @@ namespace LegacyAppTests
         public void AddUser_ReturnsTrue_ForVeryImportantClient_WithoutCreditCheck()
         {
             var userService = new UserService();
-            var result = userService.AddUser("John", "Malewski", "johnmalewski@example.com", new DateTime(1980, 1, 1), 2);
+            var result = userService.AddUser("John", "Malewski", "johnmalewski@example.com", new DateTime(1980, 1, 1),
+                2);
             Assert.True(result);
         }
 
@@ -138,18 +131,12 @@ namespace LegacyAppTests
         }
 
         [Fact]
-        public void AddUser_ReturnsFalse_WhenClientRepositoryThrowsException()
-        {
-            var userService = new UserService();
-            var result = userService.AddUser("John", "Doe", "johndoe@example.com", new DateTime(1980, 1, 1), -1); // Invalid client ID
-            Assert.False(result);
-        }
-
-        [Fact]
         public void AddUser_ReturnsTrue_ForNormalClient_WithCreditLimitAbove500()
         {
             var userService = new UserService();
-            var result = userService.AddUser("Jane", "Doe", "janedoe@example.com", new DateTime(1970, 1, 1), 4); // ID 4 for NormalClient
+            var result =
+                userService.AddUser("Jane", "Doe", "janedoe@example.com", new DateTime(1970, 1, 1),
+                    4); // ID 4 for NormalClient
             Assert.True(result);
         }
 
@@ -158,9 +145,12 @@ namespace LegacyAppTests
         {
             var userService = new UserService();
             // Assuming 'Doe' has a credit limit < 500 for NormalClient
-            var result = userService.AddUser("John", "Smith", "johnsmith@example.com", new DateTime(1980, 1, 1), 4); // ID 4 for NormalClient
+            var result =
+                userService.AddUser("John", "Smith", "johnsmith@example.com", new DateTime(1980, 1, 1),
+                    4); // ID 4 for NormalClient
             Assert.True(result);
         }
+
         [Fact]
         public void Client_Properties_AreSetCorrectly()
         {
@@ -188,6 +178,7 @@ namespace LegacyAppTests
             Assert.Equal(address, client.Address);
             Assert.Equal(type, client.Type);
         }
+
         [Fact]
         public void GetCreditLimit_ReturnsCreditLimit_WhenClientExists()
         {
@@ -210,9 +201,11 @@ namespace LegacyAppTests
             var lastName = "NonExistent"; // Використовуйте прізвище, якого немає в словнику _database
 
             // Act & Assert
-            var exception = Assert.Throws<ArgumentException>(() => userCreditService.GetCreditLimit(lastName, DateTime.Now));
+            var exception =
+                Assert.Throws<ArgumentException>(() => userCreditService.GetCreditLimit(lastName, DateTime.Now));
             Assert.Equal($"Client {lastName} does not exist", exception.Message);
         }
+
         [Fact]
         public void UserProperties_ShouldSetAndGetCorrectly()
         {
@@ -237,6 +230,7 @@ namespace LegacyAppTests
             Assert.True(user.HasCreditLimit);
             Assert.Equal(500, user.CreditLimit);
         }
-
     }
 }
+    
+

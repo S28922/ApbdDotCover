@@ -1,4 +1,6 @@
-﻿namespace LegacyApp
+﻿using System;
+
+namespace LegacyApp
 {
     public class Client
     {
